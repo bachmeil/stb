@@ -833,7 +833,6 @@ static struct stb_easy_font_info_struct {
     { 23,180,248 }, { 22,189,248 }, { 22,191,252 }, { 5,196,252 },
     { 3,203,252 }, { 5,203,253 }, { 22,210,253 }, { 0,214,253 },
 };
-
 static unsigned char stb_easy_font_hseg[214] = {
    97,37,69,84,28,51,2,18,10,49,98,41,65,25,81,105,33,9,97,1,97,37,37,36,
     81,10,98,107,3,100,3,99,58,51,4,99,58,8,73,81,10,50,98,8,73,81,4,10,50,
@@ -872,7 +871,7 @@ static int stb_easy_font_draw_segs(float x, float y, unsigned char *segs, int nu
             for (j=0; j < 4; ++j) {
                 * (float *) (vbuf+offset+0) = x + (j==1 || j==2 ? (vertical ? 1 : len) : 0);
                 * (float *) (vbuf+offset+4) = y0 + ( j >= 2 ? (vertical ? len : 1) : 0);
-                * (float *) (vbuf+offset+8) = 0.0f;
+                * (float *) (vbuf+offset+8) = 0.f;
                 * (stb_easy_font_color *) (vbuf+offset+12) = c;
                 offset += 16;
             }
@@ -890,12 +889,7 @@ static int stb_easy_font_print(float x, float y, char *text, unsigned char color
     char *vbuf = (char *) vertex_buffer;
     float start_x = x;
     int offset = 0;
-    //~ stb_easy_font_color c = { 255,255,255,255 };
-    stb_easy_font_color c;
-    c.c[0] = 255;
-    c.c[1] = 255;
-    c.c[2] = 255;
-    c.c[3] = 255;
+    stb_easy_font_color c = { 255,255,255,255 };
     if (color) { c.c[0] = color[0]; c.c[1] = color[1]; c.c[2] = color[2]; c.c[3] = color[3]; }
     while (*text && offset < vbuf_size) {
         if (*text == '\n') {

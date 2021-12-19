@@ -14,5 +14,8 @@ void main() {
 		cmd = `ldmd2 -c ` ~ f ~ `.c`;
 		writeln(cmd);
 		writeln(executeShell(cmd).output);
+    copy(f ~ ".c", "unmodified/" ~ f ~ ".c");
+    remove(f ~ ".c");
+    if (exists(f ~ ".o")) { remove(f ~ ".o"); }
 	}
 }
